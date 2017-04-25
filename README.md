@@ -22,6 +22,33 @@ The [LinuxServer.io][linuxserverurl] team brings you another container release f
 
 ## Usage
 
+```sh
+# As user docker do
+$ mkdir containers && cd containers
+$ git clone git@github.com:arib/docker-plex.git
+$ cd docker-plex
+$ mkdir config
+$ id docker
+# insert user and group id into create command below
+```
+
+```
+docker create \
+  --name=plex \
+  --net=host \
+  -e VERSION=latest \
+  -e PUID=999 -e PGID=1001 \
+  -e TZ=Atlantic/Reykjavik \
+  -v /home/docker/containers/docker-plex/config:/config \
+  -v /media/synology-kayla/tvshows:/data/tvshows \
+  -v /media/synology-kayla/movies/foreign_movies:/data/foreign_movies \
+  -v /media/synology-kayla/movies/icelandic_movies:/data/icelandic_movies \
+  -v /media/synology-kayla/kids/movies:/data/kids_movies \
+  -v /media/synology-kayla/kids/tvshows:/data/kids_tvshows \
+  --restart=always \
+  linuxserver/plex	
+```
+
 ```
 docker create \
 --name=plex \
